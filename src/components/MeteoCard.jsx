@@ -5,29 +5,43 @@ import "../styles/MeteoCard.css";
 
 const MeteoCard = () => {
 
-  const [MeteoData, setMeteoData] = useState([]);
+  //Meteo Data : recupération des donnés via api OpenWeatherMap
+  const [MeteoData, setMeteoData] = useState();
+  const [Icons, setIcons] = useState();
+  const [Description, setDescription] = useState();
+
 
   useEffect(() => {
     axios
-    .get("http://api.openweathermap.org/data/2.5/weather?q=montpellier&appid=8d94247a28fa2e4557e770ace0c98508")
+    .get("http://api.openweathermap.org/data/2.5/weather?q=brest&appid=8d94247a28fa2e4557e770ace0c98508&lang=fr&units=metric")
     .then((response) => {
       setMeteoData(response.data);
-      console.log(MeteoData);
+      setIcons(response.data.weather.map((elm) => (
+         elm.icon
+      )));
+      setDescription(response.data.weather.map((elm) => (
+        elm.description
+     )));
+    
+    
     });
   }, []);
 
   if (!MeteoData) return [];
 
   return (
+
     <div className="CardsDisplay">
     <div className="card">
-      <img src="logo_meteo.png" class="card-img-top" alt="..." />
+
+      <div className="tutu">
+      <img className="weather" src={`http://openweathermap.org/img/wn/${Icons}@2x.png`} class="card-img-top" alt="..." />
+      <h3>{Math.floor(MeteoData.main.temp)+"°C"}</h3>
+      
+      </div>
+      {/* <h3 className="description">{Description}</h3> */}
       <div class="card-body">
-        <h5 class="card-title">{MeteoData.name}</h5>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
+        <h5 class="card-title">{MeteoData.name}, {Description}</h5>
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">An item</li>
