@@ -1,6 +1,8 @@
 .Header {
-    border: 1px solid black;
+    border: 1px solid rgb(219, 217, 217);
     height: fit-content;
+    text-align: center;
+
 }
 
 .header_logo {
