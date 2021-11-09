@@ -1,3 +1,10 @@
 .Header {
-    background-color: red;
+    border: 1px solid black;
+    height: fit-content;
+}
+
+.header_logo {
+    width: 100px;
+    height: auto;
+    padding: 5px;
 }
